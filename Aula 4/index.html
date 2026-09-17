@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Classificação de Atletas</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .menu { background-color: #f0f0f0; padding: 15px; border-radius: 5px; width: 300px; }
+    .resultado { margin-top: 20px; color: blue; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <h2>Sistema de Classificação</h2>
+  
+  <div class="menu">
+    <h3>Categorias de Esportes</h3>
+    <p>1 - Natação</p>
+    <p>2 - Corrida</p>
+    <p>3 - Ciclismo</p>
+  </div>
+
+  <br>
+
+  <!-- Campos para o usuário digitar -->
+  <label for="esporte">Digite o número do esporte (1, 2 ou 3):</label><br>
+  <input type="number" id="esporte" min="1" max="3">
+  
+  <br><br>
+
+  <label for="idade">Digite a idade do atleta:</label><br>
+  <input type="number" id="idade">
+  
+  <br><br>
+
+  <!-- Botão que chama a função JavaScript -->
+  <button onclick="classificarAtleta()">Classificar</button>
+
+  <!-- Espaço onde o resultado vai aparecer -->
+  <div id="resultado" class="resultado"></div>
+
+  <script>
+    function classificarAtleta() {
+      // Pegando os valores que o usuário digitou no HTML
+      let inputEsporte = document.getElementById("esporte").value;
+      let inputIdade = document.getElementById("idade").value;
+
+      // Convertendo os textos em números
+      let esporte = parseInt(inputEsporte);
+      let idade = parseInt(inputIdade);
+      
+      let categoria = "";
+      let textoResultado = ""; // Variável para montar a mensagem final
+
+      // Estrutura switch/case
+      switch (esporte) {
+        case 1:
+          textoResultado = "Esporte selecionado: Natação<br>";
+          if (idade < 10) {
+            categoria = "Categoria: Mirim";
+          } else if (idade <= 14) {
+            categoria = "Categoria: Infantil";
+          } else if (idade > 14) {
+            categoria = "Categoria: Juvenil";
+          }
+          break;
+
+        case 2:
+          textoResultado = "Esporte selecionado: Corrida<br>";
+          if (idade < 16) {
+            categoria = "Categoria: Júnior";
+          } else if (idade >= 16) {
+            categoria = "Categoria: Adulto";
+          }
+          break;
+
+        case 3:
+          textoResultado = "Esporte selecionado: Ciclismo<br>";
+          if (idade >= 18) {
+            categoria = "Categoria: Profissional";
+          } else if (idade < 18) {
+            categoria = "Categoria: Amador";
+          }
+          break;
+
+        default:
+          textoResultado = "Opção de esporte inválida! Escolha 1, 2 ou 3.";
+          break;
+      }
+
+      // Se uma categoria foi encontrada, adiciona ela na mensagem
+      if (categoria !== "") {
+        textoResultado += "Idade do atleta: " + idade + " anos<br>";
+        textoResultado += categoria;
+      }
+
+      // Enviando a mensagem final de volta para a tela do HTML
+      document.getElementById("resultado").innerHTML = textoResultado;
+    }
+  </script>
+
+</body>
+</html>
